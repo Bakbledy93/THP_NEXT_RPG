@@ -1,6 +1,6 @@
 class Assassin extends Characters{
-  constructor (name, hp = 6, mana = 20 , dmg = 6 , status="playing", roundplayed = false, armor = 1){
-    super(name, hp, mana, dmg, status, roundplayed, armor = 1)
+  constructor (name, hp = 8, mana = 20 , dmg = 6 , status="playing", roundplayed = false, armor = 1, lastturn = false){
+    super(name, hp, mana, dmg, status, roundplayed, armor, lastturn)
   };
 
   special = (victim) =>{

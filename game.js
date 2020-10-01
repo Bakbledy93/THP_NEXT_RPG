@@ -24,7 +24,7 @@ class Game {
     console.log(`-----Stats du tour-----`);
     this.players.map(function(player) {
       if (player.hp > 0) {
-      console.log(`${player.name} est ${player.constructor.name} et a ${player.hp} pv, ${player.dmg} points d'attaque, et ${player.mana} de mana`);
+      console.log(`${player.name} est ${player.constructor.name} et a ${player.hp} pv, ${player.dmg} points d'attaque, ${player.mana} de mana, et ${player.armor} d'armure`);
       }
       else {
         console.log(`${player.name} est KO`);
@@ -42,12 +42,26 @@ class Game {
     return randomchoice
   }
   
+  checkinLastTurn =() =>{
+    let check = this.players.filter(player=> player.lastturn == true && player.hp > 0)
+    return check
+  }
+
   startTurn = () => {
     console.log(`-----C'est le tour ${this.currentturn}-----`);
+    let check = this.checkinLastTurn();
+    if (check.length > 0) {
+      let fighterarmor = check[0];
+      fighterarmor.armor = fighterarmor.armor*2
+      fighterarmor.lastturn = false
+    };
+    console.log(`-----Début du tour-----`);
+    this.watchStats();
     while (this.roundVerification().length > 0) {
       let round = this.roundVerification();
       let player = this.pickPlayer();
       player.roundplayed = true;
+      console.log(`-------------------------`);
       console.log(`C'est au tour de ${player.name} qui est ${player.constructor.name} de jouer`);
       let victims = this.players.filter(victim => victim.hp > 0 && victim !== player);
       let randomvictim = victims[Math.floor(Math.random()*victims.length)]
@@ -61,8 +75,13 @@ class Game {
       };
       player.dealDamage(randomvictim);
     }
+    if (check.length > 0) {
+      let fighterarmor = check[0];
+      fighterarmor.armor = 1
+    }
     this.watchStats();
     this.roundPlayed();
+    console.log(`-----Fin du tour-----`);
   };
 
   winner = () =>{

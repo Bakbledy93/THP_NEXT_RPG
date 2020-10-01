@@ -1,5 +1,5 @@
 class Characters{
-  constructor (name, hp, mana, dmg, status, roundplayed, armor){
+  constructor (name, hp, mana, dmg, status, roundplayed, armor, lastturn){
     this.name = name;
     this.hp = hp;
     this.mana = mana;
@@ -7,6 +7,7 @@ class Characters{
     this.status = status;
     this.roundplayed = roundplayed;
     this.armor = armor;
+    this.lastturn = lastturn;
   }
 
   takeDamage =(dmg, armor) => {
